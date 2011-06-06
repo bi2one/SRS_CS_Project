@@ -26,14 +26,19 @@ public class ModelTestDrive {
 	// model.updateById(valuePairs, 4);
 
 	/* MemberModel Test - save */
-	Member member = new Member(Kind.CONSUMER, "testconfig!", "testpassafdsaffadsfsa");
-	MemberModel model = new MemberModel();
-	model.save(member);
+	// Member member = new Member(Kind.CONSUMER, "testconfig!", "testpassafdsaffadsfsa");
+	// MemberModel model = new MemberModel();
+	// model.save(member);
 
 	/* ItemModel Test - save */
 	// Item item = new Item("tv", 2000, "tv for show!");
 	// member.setId(3);
 	// ItemModel model = new ItemModel();
 	// model.save(item);
+
+	/* ItemModel Test - find */
+	ItemModel model = new ItemModel();
+	Item item = model.findItemById(3);
+	System.out.println(item.getName());
     }
 }

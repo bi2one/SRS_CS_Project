@@ -107,6 +107,10 @@ public class Model {
 	return query(findQuery);
     }
 
+    public ResultSet findAll() {
+	return query("SELECT * FROM " + table);
+    }
+
     public boolean save(SRSData data) {
 	if (data.getId() != 0) {
 	    ResultSet existingData = findById(data.getId());
