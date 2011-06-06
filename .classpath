@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="lib/jdbc/src/" kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/ant-contrib.jar"/>
+	<classpathentry kind="lib" path="lib/c3p0-0.9.1-pre6.jar"/>
+	<classpathentry kind="lib" path="lib/jboss-common-jdbc-wrapper-src.jar"/>
+	<classpathentry kind="lib" path="lib/jboss-common-jdbc-wrapper.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/git/SRS_CS_Project/src/lib/jdbc/mysql-connector-java-5.1.16-bin.jar"/>
+	<classpathentry kind="output" path="src"/>
+</classpath>

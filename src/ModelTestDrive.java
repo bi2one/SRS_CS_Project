@@ -1,3 +1,4 @@
+import com.cs.srs.control.Control_consumer;
 import com.cs.srs.model.Model;
 import com.cs.srs.model.MemberModel;
 import com.cs.srs.model.data.Member;
@@ -37,8 +38,28 @@ public class ModelTestDrive {
 	// model.save(item);
 
 	/* ItemModel Test - find */
-	ItemModel model = new ItemModel();
-	Item item = model.findItemById(3);
-	System.out.println(item.getName());
+//	ItemModel model = new ItemModel();
+//	Item item = model.findItemById(3);
+//	System.out.println(item.getName());
+    	
+    	Control_consumer cc = new Control_consumer(0) {
+			
+			protected boolean showSellItems(int retailerItemId, String name, int value) {
+				System.out.println("name : " + name + " : " + value);
+				return true;
+			}
+			protected boolean showBuyingItems(int id, String name, int value) {
+				System.out.println("name : " + name + " : " + value);
+				return true;
+			}
+		};
+		
+		cc.getAllItems();
+		Item i = cc.showItemDescription(1);
+		System.out.println("i.getName() : " + i.getName());
+		cc.Order(1, 3);
+		cc.getBuyingItems();
+		cc.CancelOrder(13);
+		cc.getBuyingItems();
     }
 }
