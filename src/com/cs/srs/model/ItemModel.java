@@ -3,6 +3,7 @@ package com.cs.srs.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.cs.srs.model.data.SRSData;
 import com.cs.srs.model.data.Item;
 
 public class ItemModel extends Model {
@@ -10,20 +11,16 @@ public class ItemModel extends Model {
 	super("items");
     }
 
-    public Item findItemById(int id) {
-	ResultSet result = super.findById(id);
-	try {
-	    if (result.next()) {
-		return new Item(result.getInt("id"),
-				result.getString("name"),
-				result.getInt("price"),
-				result.getString("description"));
-	    } else {
-		return null;
-	    }
-	} catch (SQLException e) {
-	    e.printStackTrace();
-	    return null;
-	}
+    protected SRSData createDataByResultSet(ResultSet result) throws SQLException {
+	return new Item(result.getInt("id"),
+			result.getString("name"),
+			result.getInt("price"),
+			result.getString("description"));
+    }
+
+    public boolean updateItemPrice(int id, int price) {
+	Item item = ((Item)findItemById(id));
+	item.setPrice(price);
+	return save(item);
     }
 }

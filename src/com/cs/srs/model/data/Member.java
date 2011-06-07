@@ -22,6 +22,16 @@ public class Member extends SRSData {
 	    }
             return null;
 	}
+	
+        public static Kind toKind(String input) {
+	    if (input.equals("consumer"))
+		return CONSUMER;
+	    if (input.equals("wholesaler"))
+		return WHOLESALER;
+	    if (input.equals("retailer"))
+		return RETAILER;
+	    return FACTORY;
+	}
     };
 
     public Member(int id, Kind kind, String username, String password) {

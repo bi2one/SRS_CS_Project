@@ -9,16 +9,19 @@ import java.sql.Statement;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 import com.cs.srs.Config;
 import com.cs.srs.model.data.SRSData;
 
-public class Model {
+public abstract class Model {
     private static volatile Connection connect;
     private Statement statement;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
     private String table;
+
+    protected abstract SRSData createDataByResultSet(ResultSet result) throws SQLException;
 
     public Model(String table) {
 	this.table = table;
@@ -111,6 +114,41 @@ public class Model {
 	return query("SELECT * FROM " + table);
     }
 
+    public ArrayList<SRSData> simpleFindItem(String field, String value, String orderBase, boolean isAsc) {
+	ArrayList<SRSData> items = new ArrayList<SRSData>();
+	ResultSet result = simpleFind(field, value, orderBase, isAsc);
+
+	try {
+	    while(result.next()) {
+		SRSData item = createDataByResultSet(result);
+		items.add(item);
+	    }
+	} catch(SQLException e) {
+	    e.printStackTrace();
+	}
+	return items;
+    }
+
+    public ArrayList<SRSData> findAllItem() {
+	return simpleFindItem("1", "1", "id", true);
+    }
+
+    public SRSData findItemById(int id) {
+	ResultSet result = findById(id);
+	try {
+	    if (result.next()) {
+		SRSData data = createDataByResultSet(result);
+		data.setId(id);
+		return data;
+	    } else {
+		return null;
+	    }
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	    return null;
+	}
+    }
+
     public boolean save(SRSData data) {
 	if (data.getId() != 0) {
 	    ResultSet existingData = findById(data.getId());
@@ -127,5 +165,18 @@ public class Model {
 	    return insert(data.getValueTuple());
 	}
 	return false;
+    }
+
+    public boolean remove(SRSData data) {
+	return remove(data.getId());
+    }
+
+    public boolean remove(int id) {
+	return remove("id", id + "");
+    }
+
+    public boolean remove(String field, String value) {
+	String removeQuery = "DELETE FROM " + table + " WHERE " + field + "=" + value;
+	return update(removeQuery);
     }
 }

@@ -56,11 +56,11 @@ public class BuyingWholesalerItem extends SRSData {
     }
 
     public void setState(State state) {
-	this.state = state.toString();
+	this.state = getDQuoteString(state.toString());
     }
 
-    public String getState() {
-	return state;
+    public State getState() {
+	return State.toState(getDQuoteFreeString(state));
     }
 
     public void setMembersId(int members_id) {

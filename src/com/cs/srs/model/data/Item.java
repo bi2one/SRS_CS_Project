@@ -8,15 +8,33 @@ public class Item extends SRSData {
     private String description;
 
     public enum State {
-	BEFORE_PAYMENT, AFTER_DELIVERY;
+	BEFORE_PAYMENT, ACCEPT, SHIP, ARRIVAL, REFUND;
 	public String toString() {
 	    switch(this) {
 	    case BEFORE_PAYMENT:
 		return "before_payment";
-	    case AFTER_DELIVERY:
-		return "after_delivery";
+	    case ACCEPT:
+		return "accept";
+	    case SHIP:
+		return "ship";
+	    case ARRIVAL:
+		return "arrival";
+	    case REFUND:
+		return "refund";
 	    }
             return null;
+	}
+	
+	public static State toState(String input) {
+	    if (input.equals("accept"))
+		return ACCEPT;
+	    if (input.equals("ship"))
+		return SHIP;
+	    if (input.equals("arrival"))
+		return ARRIVAL;
+	    if (input.equals("refund"))
+		return REFUND;
+	    return BEFORE_PAYMENT;
 	}
     };
     
